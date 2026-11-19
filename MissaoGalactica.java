@@ -95,7 +95,7 @@ public class MissaoGalactica {
                 "Botânico", "Cientista", "Comunicações", "Faxineiro estelar", "Músico de bordo"
         };
 
-        Random random = new Random();
+        Random random = new Random(1990);
         Set<Integer> codigosUsados = new HashSet<>();
         List<Tripulante> tripulantes = new ArrayList<>(quantidade);
 
