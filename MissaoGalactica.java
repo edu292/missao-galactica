@@ -342,8 +342,58 @@ public class MissaoGalactica {
         return lista;
     }
 
-    static EstatisticasOrdenacao bubbleSort(Tripulante[] tripulantes, boolean passoAPasso) {
-        return new EstatisticasOrdenacao();
+    static EstatisticasOrdenacao bubbleSort(Tripulante[] v, boolean passoAPasso) {
+        EstatisticasOrdenacao est = new EstatisticasOrdenacao();
+        long inicio = System.nanoTime();
+        int n = v.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            boolean houveTroca = false;
+
+            if (passoAPasso) {
+                System.out.println();
+                System.out.println("★ Bubble Sort · passagem " + (i + 1));
+            }
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                est.comparacoes++;
+                if (passoAPasso) {
+                    System.out.print(" " + v[j].nome + " (" + v[j].codigo + ") > "
+                            + v[j + 1].nome + " (" + v[j + 1].codigo + ")? ");
+                }
+
+                if (v[j].codigo > v[j + 1].codigo) {
+                    if (passoAPasso) {
+                        System.out.println("SIM → " + v[j].nome + " e " + v[j + 1].nome + " trocam de assento!");
+                    }
+                    Tripulante troca = v[j];
+                    v[j] = v[j + 1];
+                    v[j + 1] = troca;
+                    est.trocas++;
+                    houveTroca = true;
+                } else {
+                    if (passoAPasso) {
+                        System.out.println("NÃO → ficam onde estão.");
+                    }
+                }
+            }
+
+            if (passoAPasso) {
+                System.out.println(" → " + v[n - 1 - i].nome + " flutua até a posição [" + (n - 1 - i) + "]");
+                System.out.println(" fim da passagem " + (i + 1)
+                        + " → comparações: " + est.comparacoes + " | trocas: " + est.trocas);
+            }
+
+            if (!houveTroca) {
+                if (passoAPasso) {
+                    System.out.println(" → nenhuma troca nesta passagem: a tripulação já está em ordem!");
+                }
+                break;
+            }
+        }
+
+        est.tempoNano = System.nanoTime() - inicio;
+        return est;
     }
 
     static EstatisticasOrdenacao insertionSort(Tripulante[] v, boolean passoAPasso) {
